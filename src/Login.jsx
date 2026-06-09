@@ -39,13 +39,21 @@ export default function Login({ onLoginSuccess }) {
       );
 
       // Cek apakah response backend menyatakan sukses
-      if (response.data && (response.data.id === 1 || response.data.id === "1" || response.data.msg === "Sukses")) {
-        localStorage.setItem('monipad_user', username);
-        localStorage.setItem('monipad_hash', hashedPassword);
+      if (
+        response.data &&
+        (response.data.id === 1 ||
+          response.data.id === "1" ||
+          response.data.msg === "Sukses")
+      ) {
+        localStorage.setItem("monipad_user", username);
+        localStorage.setItem("monipad_hash", hashedPassword);
         onLoginSuccess();
       } else {
         // Backend mengembalikan status gagal (seperti "Account not found")
-        setErrorMsg(response.data.msg || "Login gagal. Silakan periksa kembali kredensial Anda.");
+        setErrorMsg(
+          response.data.msg ||
+            "Login gagal. Silakan periksa kembali kredensial Anda.",
+        );
       }
     } catch (error) {
       console.error("Login Error:", error);
@@ -64,8 +72,8 @@ export default function Login({ onLoginSuccess }) {
           <div className="logo-placeholder">
             <User size={32} className="text-primary" />
           </div>
-          <h2>Portal Monipad</h2>
-          <p>Login untuk mengakses Dashboard Kinerja UPT PPD</p>
+          <h2>Monipad-Q</h2>
+          <p>Login untuk mengakses Dashboard Kinerja UPT</p>
         </div>
 
         {errorMsg && (
