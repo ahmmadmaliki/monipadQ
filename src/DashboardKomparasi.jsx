@@ -5,8 +5,8 @@ import {
   Calendar,
   ChevronDown,
   Filter,
-  LogOut,
   Loader2,
+  LogOut,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import "./DashboardKomparasi.css";
@@ -74,7 +74,10 @@ const attemptSilentLogin = () => {
         withCredentials: true,
       });
 
-      if (res.data && (res.data.id === 1 || res.data.id === "1" || res.data.msg === "Sukses")) {
+      if (
+        res.data &&
+        (res.data.id === 1 || res.data.id === "1" || res.data.msg === "Sukses")
+      ) {
         // Jeda waktu agar CodeIgniter selesai menulis file session ke disk
         setTimeout(() => resolve(true), 1000);
       } else {
@@ -83,7 +86,9 @@ const attemptSilentLogin = () => {
     } catch (e) {
       resolve(false);
     } finally {
-      setTimeout(() => { silentLoginPromise = null; }, 3000);
+      setTimeout(() => {
+        silentLoginPromise = null;
+      }, 3000);
     }
   });
 
@@ -135,13 +140,16 @@ export default function DashboardKomparasi({ onLogout }) {
       );
 
       if (response.data) {
-        if (response.data.msg && response.data.msg.toLowerCase().includes("sesi anda habis")) {
+        if (
+          response.data.msg &&
+          response.data.msg.toLowerCase().includes("sesi anda habis")
+        ) {
           // Attempt silent relogin (like token refresh)
           if (!isRetry) {
             const silentLoginSuccess = await attemptSilentLogin();
             if (silentLoginSuccess) {
               // Stagger retries dengan delay acak untuk mencegah Session Lock massal pada sesi yang baru dibuat
-              await new Promise(r => setTimeout(r, Math.random() * 1500));
+              await new Promise((r) => setTimeout(r, Math.random() * 1500));
               return await fetchUPTData(kdcabang, true); // Retry ONCE
             }
           }
@@ -283,7 +291,7 @@ export default function DashboardKomparasi({ onLogout }) {
     <div className="dashboard-container">
       <header className="dashboard-header">
         <div className="header-content">
-          <h1>Dashboard Komparasi & Kinerja UPT PPD</h1>
+          <h1>Dashboard Komparasi & Kinerja UPT</h1>
           <p>Evaluasi Performa Penerimaan Pendapatan Daerah</p>
         </div>
         <button className="btn-logout" onClick={onLogout} title="Keluar">
@@ -379,7 +387,7 @@ export default function DashboardKomparasi({ onLogout }) {
           </p>
         </div>
         <div className="summary-card average-card glass-panel-accent">
-          <h3>Rata-Rata Persentase Provinsi</h3>
+          <h3>Rata-Rata Persentase UPT</h3>
           <div className="average-value-wrapper">
             <span className="average-percent">
               {isLoading ? (
