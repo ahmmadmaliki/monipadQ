@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/monipad/:match*",
+      "destination": "https://monipad.dipendajatim.go.id/monipad/:match*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
